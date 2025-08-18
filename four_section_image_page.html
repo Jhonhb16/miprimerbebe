@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página con 4 Secciones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .section {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover img {
+            transform: scale(1.05);
+        }
+
+        .section-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .section:hover .section-overlay {
+            opacity: 1;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Diferentes colores de overlay para cada sección */
+        .section:nth-child(1) .section-overlay {
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.6), rgba(255, 142, 83, 0.6));
+        }
+
+        .section:nth-child(2) .section-overlay {
+            background: linear-gradient(45deg, rgba(78, 205, 196, 0.6), rgba(85, 98, 112, 0.6));
+        }
+
+        .section:nth-child(3) .section-overlay {
+            background: linear-gradient(45deg, rgba(199, 121, 208, 0.6), rgba(75, 123, 236, 0.6));
+        }
+
+        .section:nth-child(4) .section-overlay {
+            background: linear-gradient(45deg, rgba(255, 195, 113, 0.6), rgba(255, 87, 51, 0.6));
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sección 1 -->
+    <section class="section">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Montañas y lago">
+        <div class="section-overlay">
+            <h2 class="section-title">Naturaleza</h2>
+        </div>
+    </section>
+
+    <!-- Sección 2 -->
+    <section class="section">
+        <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Ciudad nocturna">
+        <div class="section-overlay">
+            <h2 class="section-title">Ciudad</h2>
+        </div>
+    </section>
+
+    <!-- Sección 3 -->
+    <section class="section">
+        <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Océano y playa">
+        <div class="section-overlay">
+            <h2 class="section-title">Océano</h2>
+        </div>
+    </section>
+
+    <!-- Sección 4 -->
+    <section class="section">
+        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Bosque con rayos de sol">
+        <div class="section-overlay">
+            <h2 class="section-title">Bosque</h2>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll para navegación suave entre secciones
+        document.addEventListener('DOMContentLoaded', function() {
+            // Agregar navegación con scroll suave al hacer clic
+            document.addEventListener('keydown', function(e) {
+                const sections = document.querySelectorAll('.section');
+                let currentSection = 0;
+                
+                // Determinar sección actual
+                sections.forEach((section, index) => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 100 && rect.bottom >= 100) {
+                        currentSection = index;
+                    }
+                });
+
+                // Navegación con flechas
+                if (e.key === 'ArrowDown' && currentSection < sections.length - 1) {
+                    sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
+                } else if (e.key === 'ArrowUp' && currentSection > 0) {
+                    sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            // Efecto parallax sutil
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const sections = document.querySelectorAll('.section img');
+                
+                sections.forEach((img, index) => {
+                    const rate = scrolled * -0.5;
+                    img.style.transform = `translateY(${rate}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
