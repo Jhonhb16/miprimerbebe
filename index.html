@@ -113,41 +113,5 @@
         </div>
     </section>
 
-    <script>
-        // Smooth scroll para navegación suave entre secciones
-        document.addEventListener('DOMContentLoaded', function() {
-            // Agregar navegación con scroll suave al hacer clic
-            document.addEventListener('keydown', function(e) {
-                const sections = document.querySelectorAll('.section');
-                let currentSection = 0;
-                
-                // Determinar sección actual
-                sections.forEach((section, index) => {
-                    const rect = section.getBoundingClientRect();
-                    if (rect.top <= 100 && rect.bottom >= 100) {
-                        currentSection = index;
-                    }
-                });
-
-                // Navegación con flechas
-                if (e.key === 'ArrowDown' && currentSection < sections.length - 1) {
-                    sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
-                } else if (e.key === 'ArrowUp' && currentSection > 0) {
-                    sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-
-            // Efecto parallax sutil
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const sections = document.querySelectorAll('.section img');
-                
-                sections.forEach((img, index) => {
-                    const rate = scrolled * -0.5;
-                    img.style.transform = `translateY(${rate}px)`;
-                });
-            });
-        });
-    </script>
 </body>
 </html>
